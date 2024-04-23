@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import forms
 
 from users.models import CustomUser
 
@@ -8,3 +9,4 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ('role', 'username', 'name')
         # fields = ('username', 'name', 'email', 'contacts', 'role', 'experience',)
+

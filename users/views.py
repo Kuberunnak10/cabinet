@@ -30,10 +30,12 @@ def profile(request):
         user.name = request.POST.get('name')
         user.email = request.POST.get('email')
         user.contacts = request.POST.get('contacts')
-        user.experience = request.POST.get('experience')
+        user.experience = request.POST.get('experience')  # Сохранение опыта
         new_role = request.POST.get('role')
-        request.user.role = new_role
+        user.role = new_role
         user.save()
         # Обновляем данные пользователя и перенаправляем на ту же страницу
         return redirect('profile')
     return render(request, 'profile/profile.html')
+
+
