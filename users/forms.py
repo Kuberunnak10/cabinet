@@ -11,14 +11,5 @@ class CustomUserCreationForm(UserCreationForm):
         # fields = ('username', 'name', 'email', 'contacts', 'role', 'experience',)
 
 
-class ExecutorProfileForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['name', 'email', 'contacts', 'experience', 'role']
 
-
-class CustomerProfileForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['name', 'email', 'contacts', 'role']
 
