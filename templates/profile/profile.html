@@ -1,57 +1,56 @@
 {% extends 'base.html' %}
 {% block content%}
 <div class="container">
-    <h1>Welcome to Your Profile</h1>
     <div class="row">
         <div class="col-md-6">
-            <h2>User Information</h2>
+            <h2>Информация о пользователе</h2>
             <form method="post" action="{% url 'profile' %}">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" placeholder="Name">
+                    <label for="name">Имя:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" placeholder="Имя">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <label for="contacts">Contacts:</label>
-                    <input type="text" class="form-control" id="contacts" name="contacts" value="{{ user.contacts }}" placeholder="Contacts">
+                    <label for="contacts">Контакты:</label>
+                    <input type="text" class="form-control" id="contacts" name="contacts" value="{{ user.contacts }}" placeholder="Контакты">
                 </div>
                 {% if user.role == 'Executor' %}
-                <div class="form-group">
-                    <label for="experience">Experience:</label>
-                    <textarea class="form-control" id="experience" name="experience" placeholder="Experience">{{ user.experience }}</textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="experience">Опыт:</label>
+                        <textarea class="form-control" id="experience" name="experience" placeholder="Укажите ваш опыт">{{ user.experience|default:"" }}</textarea>
+                    </div>
+                {% else %}
+                    <textarea class="form-control" id="experience" name="experience" placeholder="Укажите ваш опыт" hidden>{{ user.experience|default:"" }}</textarea>
                 {% endif %}
                 <h2>Role: {{ user.role }}</h2>
                 <div class="form-group">
-                    <label for="role">Role:</label>
+                    <label for="role">Роль:</label>
                     <select class="form-control" id="role" name="role">
-                        <option value="Customer" {% if user.role == 'Customer' %} selected {% endif %}>Customer</option>
-                        <option value="Executor" {% if user.role == 'Executor' %} selected {% endif %}>Executor</option>
+                        <option value="Customer" {% if user.role == 'Customer' %} selected {% endif %}>Заказчик</option>
+                        <option value="Executor" {% if user.role == 'Executor' %} selected {% endif %}>Исполнитель</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <button type="submit" class="btn btn-primary">Обновить профиль</button>
             </form>
         </div>
         <div class="col-md-6">
-            <h2>User Dashboard</h2>
+            <h2>Панель управления пользователем</h2>
             <div class="row">
                 <div class="col-md-12">
                     {% if user.role == 'Customer' %}
-                        <!-- Customer Dashboard -->
-                        <p>Customer Dashboard Content Goes Here</p>
+                        <p>Содержимое панели мониторинга заказчика</p>
                     {% elif user.role == 'Executor' %}
-                        <!-- Executor Dashboard -->
-                        <p>Executor Dashboard Content Goes Here</p>
+                        <p>Содержимое панели мониторинга исполнителя</p>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <hr>
-    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
 </div>
 {% endblock %}
